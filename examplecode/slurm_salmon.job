@@ -1,0 +1,110 @@
+#!/bin/bash -l
+#Force bash as the executing shell.
+#SBATCH -N 1
+#SBATCH -c 4
+#SBATCH --mem=24g
+#SBATCH -p normal
+#SBATCH --job-name=Salmon
+
+echo "### START - the job is starting at"
+date
+starttime=`date +"%s"`
+echo
+
+echo "the job is running on the node $SLURM_NODELIST"
+echo "job number $SLURM_JOB_ID"
+echo "STAT:jobName:slurm_Salmon_$SLURM_JOB_ID\.out"
+echo "STAT:exechosts:$SLURM_NODELIST"
+echo
+
+
+###############################################
+# SLURM receives parameters without any flags
+# just passing them after the script file name
+###############################################
+# this is the list of parameters that should be passed
+# samplequery
+# workplace
+# sample
+# referencebasename
+
+samplequery=$1
+WORKDIR=$2
+sample=$3
+transcriptsIndex=$4
+LIBTYPE=$5
+
+
+echo "### the following variables have been passed to the job ###"
+echo "samplequery = $samplequery"
+echo "workplace = $WORKDIR"
+echo "sample = $sample"
+echo "referencebasename = $referencebasename"
+echo "geneannotations = $geneannotations"
+
+
+#################################################
+# input as FASTQ
+#################################################
+
+STR_ARRAY=(`echo $samplequery | tr "," "\n"`)
+query1=${STR_ARRAY[0]}
+query2=${STR_ARRAY[1]}
+inputFiles="$query1 $query2"
+
+echo "the input will be $inputFiles"
+
+
+####################
+# NB: all read/write is done in /faststorage
+# so no copy of reference or files is necessary anymore
+# which means folders should be in place before all starts
+##################
+
+# assuming the project structure is always terminating with
+# [...]/sample/sequences for .fastq files
+
+
+echo "the inputs are fastq files"
+parentFolder=${WORKDIR%/sequences}
+
+echo "assuming the parent folder is $parentFolder"
+mkdir -p $parentFolder/alignments
+cd $parentFolder/alignments
+echo "now emitting alignments into `pwd`"
+
+
+################################################
+# alignment and sorting starts here
+################################################
+
+
+alignstart=`date +"%s"`
+echo "############## running the Salmon quasi-alignment of the two pairs"
+
+
+### Salmon base code here
+
+salmon quant \
+-p 4 \
+-i $transcriptsIndex \
+-l $LIBTYPE \
+-1 $WORKDIR/$query1 \
+-2 $WORKDIR/$query2 \
+-o ${sample}_salmon_quant
+
+
+date
+alignend=`date +"%s"`
+alignrun=$((alignend - alignstart))
+echo "STAT:ALIGNSTART:$alignstart"
+echo "STAT:ALIGNEND:$alignend"
+echo "STAT:ALIGNRUN:$alignrun"
+
+echo "####END job finished"
+endtime=`date +"%s"`
+duration=$((endtime - starttime))
+echo "STAT:startTime:$starttime"
+echo "STAT:doneTime:$endtime"
+echo "STAT:runtime:$duration"
+
