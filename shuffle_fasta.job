@@ -17,8 +17,8 @@ shuffled02=${fasta02%.fasta.gz}_shuffled.fasta
 ## go home
 ######################
 
-mkdir -p ~/fastashuffle/
-cd ~/fastashuffle/
+mkdir -p ~/fastashuffle/output
+cd ~/fastashuffle/output
 
 
 ######################
@@ -60,3 +60,9 @@ ls -l *
 
 
 echo "#### cleaning up"
+#############deleting uncompressed files##########################
+rm *.fasta
+
+###################
+
+echo "###### done"
