@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -c 4
-#SBATCH --mem=48g
+#SBATCH -c 8
+#SBATCH --mem=128g
 #SBATCH --job-name shuffle-fasta
 
 fullfile01=$1
@@ -17,12 +17,9 @@ shuffled02=${fasta02%.fasta.gz}_shuffled.fasta
 ## go home
 ######################
 
-cd /home/AD/jbrenton/fastashuffle/output/
-mkdir -p ${fasta01%_1.fasta.gz}
-cd ${fasta01%_1.fasta.gz}
+mkdir -p ~/fastashuffle/output
+cd ~/fastashuffle/output
 
-#source $(conda info --base)/etc/profile.d/conda.sh
-#conda activate zip
 
 ######################
 # unzip fasta files
@@ -32,8 +29,8 @@ cd ${fasta01%_1.fasta.gz}
 
 echo "#### unzipp the 2 fasta files"
 date
-pigz -p 4 -dc ${fullfile01} | sed 's/ /_/g' >${fasta01%.gz}
-pigz -p 4 -dc ${fullfile02} | sed 's/ /_/g' >${fasta02%.gz}
+pigz -p 8 -dc ${fullfile01} | sed 's/ /_/g' >${fasta01%.gz}
+pigz -p 8 -dc ${fullfile02} | sed 's/ /_/g' >${fasta02%.gz}
 echo "### unzip completed"
 date
 echo "######## files in the folder are"
@@ -54,8 +51,8 @@ ls -l *
 
 echo "#### compressing files again"
 date
-pigz -p 4 ${shuffled01}
-pigz -p 4 ${shuffled02}
+pigz -p 8 ${shuffled01}
+pigz -p 8 ${shuffled02}
 echo "#### compressing completed"
 date
 echo "######## files in the folder are"
@@ -63,10 +60,9 @@ ls -l *
 
 
 echo "#### cleaning up"
-rm ${fasta01%.gz} ${fasta02%.gz}
-date
-echo "######## files in the folder are"
-ls -l *
+#############deleting uncompressed files##########################
+rm *.fasta
 
-echo "##### JOB COMPLETED"
-date
+###################
+
+echo "###### done"
