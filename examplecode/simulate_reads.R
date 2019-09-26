@@ -20,18 +20,29 @@ readspertx = round(30 * width(fasta) / 100)
 writeLines("##### preparing the differentially expressed genes")
 genes<- names(fasta)
 genesGRCh38<-names(fasta2)
+#############changed immunoglobulin to 400 genes because many are lost
 immunoglobulin <- sample(which(grepl("immunoglobulin", genesGRCh38)), 400)
+immunoglobulin <- genesGRCh38[immunoglobulin]
 
 ## and in controls I select 150 random genes involved with potassium
 potassium <- sample(which(grepl("potassium", genesGRCh38)), 150)
+potassium <- genesGRCh38[potassium]
 
 ############################then convert GRCH38 genes to gencode-there is some loss between the two
 transcriptnamesgenes<-str_extract_all(genes, "ENST.............")
 transcriptnamespotassium<-str_extract_all(potassium, "ENST.............")
 transcriptnamesimmunoglobulin<-str_extract_all(immunoglobulin, "ENST.............")
 
+############added in some output tables to compare to later results and for reference
+
+write.table(transcriptnamesimmunoglobulin, "immunoglobulintranscripts.txt", sep="\t", row.names=FALSE, col.names=FALSE)
+
+write.table(transcriptnamespotassium, "potassiumtranscripts.txt", sep="\t", row.names=FALSE, col.names=FALSE)
+
+write.table(transcriptnamesgenes, "potassiumtranscripts.txt", sep="\t", row.names=FALSE, col.names=FALSE)
+
 ####match to get positions in gencode fasta file
-immunomatched<-match(immunoglobulin, transcriptnamesgenes)
+immunomatched<-match(transcriptnamesimmunoglobulin, transcriptnamesgenes)
 immunopositionsgencode<-immunomatched[!is.na(immunomatched)]
 
 ######get and write out length to see how many genes are not converted
@@ -41,7 +52,7 @@ writeLines("length of gencode immunoglobulin gene list")
 writeLines(numberimmunogenes)
 
 ############same as above for potassium genes
-potmatched<-match(potassium, transcriptnamesgenes)
+potmatched<-match(transcriptnamespotassium, transcriptnamesgenes)
 potassiumpositionsgencode<-potmatched[!is.na(potmatched)]
 numberpotgenes<-length(potassiumpositionsgencode)
 numberpotgenes<-as.character(numberpotgenes)
