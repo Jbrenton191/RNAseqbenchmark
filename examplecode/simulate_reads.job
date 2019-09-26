@@ -1,0 +1,35 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -c 16
+#SBATCH --mem=12g
+#SBATCH -o /usr/share/sequencing/internships/JonathanBrenton/polyester_simulation/simulate/simulate_%j.out
+#SBATCH --job-name polySim
+
+echo "### START - the job is starting at"
+date
+starttime=`date +"%s"`
+echo
+
+echo "the job is running on the node $SLURM_NODELIST"
+echo "job number $SLURM_JOB_ID"
+echo "STAT:jobName:polyester_simulation_$SLURM_JOB_ID\.out"
+echo "STAT:exechosts:$SLURM_NODELIST"
+echo
+
+echo "### loading the required software"
+module load R/latest
+echo "### done"
+echo
+
+echo "#### start computing in R"
+date
+Rscript /usr/share/sequencing/internships/JonathanBrenton/polyester_simulation/simulate/simulate_reads.R
+
+echo "####END job finished"
+date
+
+endtime=`date +"%s"`
+duration=$((endtime - starttime))
+echo "STAT:startTime:$starttime"
+echo "STAT:doneTime:$endtime"
+echo "STAT:runtime:$duration"
