@@ -1,0 +1,7 @@
+Workflow-
+
+1. Used inhibitory genes and excitatory genes from list instead of potassium and immunoglobulin genes, but had to update the symbols from the HGNC website-https://www.genenames.org/tools/multi-symbol-checker/
+2. Changed the size parameter in polyester which seems to alter the spread of the data-increase or decrease the variance
+3. Ran salmon and shuffling as normal
+4. Ran the DESeq and EdgeR
+5. Made some graphs from the DESeq analysis
