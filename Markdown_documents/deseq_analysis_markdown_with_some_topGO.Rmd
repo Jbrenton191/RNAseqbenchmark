@@ -1,0 +1,157 @@
+---
+title: "DESeq analysis for Polyester reads"
+author: "Jonathan Brenton"
+date: "31/12/2019"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    toc_float: true
+    css: C:/Users/JBrenton/Polyester_analysis_30_09_19/nibsc.report.css
+editor_options:
+  chunk_output_type: console
+---
+
+# Loading the Salmon Samples
+
+```{r samples, include=TRUE, eval=FALSE}
+require(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+library(EnsDb.Hsapiens.v86)
+library(Biostrings)
+library(stringr)
+library(dplyr)
+library(tximport)
+library(plyr)
+
+setwd("C:/Users/JBrenton/Polyester_analysis_30_09_19/salmon_quants_15_10_19_s03/alignments")
+dir<-getwd()
+
+c(seq(01,40))->x
+samples<-c(1:length(x))
+header<-c(1:length(x))
+for (i in x) {
+  headername<-paste0("sample_", i, "_salmon_quant")
+  header[i]<-headername
+  if (file.exists(file.path(dir, headername, "quant.sf"))==TRUE) {
+    samples[i] <- file.path(dir, headername, "quant.sf")
+  }
+  
+}
+
+names(samples) <- paste0(header)
+
+c(seq(1,9))->y
+samples2<-c(1:length(y))
+header2<-c(1:length(y))
+for (i in 1:length(y)) {
+  headername<-paste0("sample_0", i, "_salmon_quant")
+  header2[i]<-headername
+  if (file.exists(file.path(dir, headername, "quant.sf"))) {
+    samples2[i] <- file.path(dir, headername, "quant.sf")
+  }
+}
+names(samples2) <- paste0(header2)
+
+samples[1:9]<-samples2[1:9]
+names(samples[1:9])<-names(samples2[1:9])
+
+###failed simulation fasta numbers for sz03
+y<-samples[c(21,27,02,28,34)]
+
+samples<-setdiff(samples,y)
+y<-c(21,27,02,28,34)
+header<-setdiff(header,header[y])
+names(samples) <- header
+
+all(file.exists(samples))
+```
+
+This section of the code specifies the working directory to retrieve the quant.sf files from the salmon output, to be used with tximport. The quant.sf filenames are specified in a full path and to verify they exist. The last sections of the code are used to rename the files with a 0 for the first 0-9 files as they are called sample_01 instead of sample_1; and the other section is to remove files that failed in the polyester simulation, due to memory allocation on the server.
+
+---
+
+## Tximporting
+
+```{r tximport, include=TRUE, eval=FALSE}
+print("############### got all folders, now importing")
+genecode_txid_to_geneid<-read.delim(
+file="C:/Users/JBrenton/Polyester_analysis_30_09_19/03.12.19_gencode_v32_tx2gene_list.txt", 
+sep=" ",header=FALSE)
+colnames(genecode_txid_to_geneid)<-c("tx_id", "gene_id","gene_name")
+###remove version info
+#genecode_txid_to_geneid$tx_id<-sub("\\..+", "", genecode_txid_to_geneid$tx_id)
+#genecode_txid_to_geneid$gene_id<-sub("\\..+", "", genecode_txid_to_geneid$gene_id)
+
+txi.salmon <- tximport(samples, type = "salmon", 
+tx2gene = genecode_txid_to_geneid, ignoreTxVersion=TRUE)
+```
+
+---
+
+# DESeq setup
+Here we import a reference file, created in the polyester code section, to use as a reference between transcript ids, gene ids and gene names (we found there was less mismatches and generation of NAs than using the ENSEMBL function-? and the bitr function in downstream analysis). We also change the column names but do not need to remove the version information on both trancsript and gene ids as this was done earlier in the polyester code. Then the tximport function is used to create a txi object. The samples are used to specify the location, type is set to salmon. the reference object is specified for transcript to gene id mapping and the ignore version setting is specified to avoid mismatches.
+
+```{r DESeq setup, echo=TRUE, eval=FALSE}
+condition<-c(1:length(samples))
+for (i in 1:length(samples)){
+  if(i<20){
+    condition[i]<-"A"
+  } else{
+    condition[i]<-"B"
+  }
+}
+
+library(DESeq2)
+sampleMetadata <- data.frame(
+  samples = names(samples),
+  condition = condition
+)
+dds_sz02 <- DESeqDataSetFromTximport(txi.salmon_sz02,
+                                colData = sampleMetadata,
+                                design = ~ condition)
+keep <- rowSums(counts(dds_sz02)) >= 10
+dds_sz02 <- dds_sz02[keep,]
+```
+
+A data frame to encode the group identity of each sample is set up using a for loop. This information is then imported into a DESeq object, along with the tximport object containing the count values, using the *DESeqDataSetFromTximport* function, the design parameter is how groups should be allocated. We then remove genes with low counts to speed up the DESeq testing and transformation, although it is also performed later by the results function.
+---
+
+```{r DESeq, echo=TRUE, eval=FALSE}
+dds_sz02 <- DESeq(dds_sz02)
+res_sz02 <- results(dds_sz02)
+res_sz02$gene <- row.names(res_sz02)
+resOrdered_sz02 <- res_sz02[order(res_sz02$pvalue),]
+resOrdered_sz02$gene <- row.names(resOrdered_sz02)
+resOrdered_sz02 <- as.data.frame(resOrdered_sz02)
+```
+
+The DESeq function is used to make a DESeq object and then the results function is used to perform differential expression testing. The results of the function are the ordered by p-value.
+
+```{r Sig Genes, echo=TRUE, eval=FALSE}
+library(clusterProfiler)
+library(org.Hs.eg.db)
+library(DOSE)
+library(genefilter)
+library(geneplotter)
+library(topGO)
+
+
+sigGenes <- rownames(subset(res_sz02, padj < 0.1 & abs(log2FoldChange > 1)))
+
+anno <- AnnotationDbi::select(org.Hs.eg.db, 
+                              keys=rownames(res_sz02), 
+                              columns=c("SYMBOL", "GENENAME"),
+                              keytype="ENSEMBL")
+
+anSig <- as.data.frame(subset(anno, ENSEMBL %in% sigGenes))
+
+sample_n(anSig, 5)
+```
+
+In this section the genes that are significant are selected for use in GO analysis. Genes with an adjusted p-value of less than 0.1 and a log2 fold change of greater than 1 in either direction. A dataframe containing the gene symbols and gene names from the org.Hs.eg.db. 
+
+```{r background, echo=TRUE, eval=FALSE}
+
+```

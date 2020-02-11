@@ -1,0 +1,25 @@
+{
+    "read_files": [
+        "/home/AD/jbrenton/small_polyester_test_1.14.19/sample_02_1_shuffled.fasta.gz",
+        "/home/AD/jbrenton/small_polyester_test_1.14.19/sample_02_2_shuffled.fasta.gz"
+    ],
+    "expected_format": "IU",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 178882,
+    "num_assigned_fragments": 178882,
+    "num_frags_with_concordant_consistent_mappings": 182294,
+    "num_frags_with_inconsistent_or_orphan_mappings": 6,
+    "strand_mapping_bias": 0.5022107145599964,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 90744,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 91550,
+    "SF": 3,
+    "SR": 3,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

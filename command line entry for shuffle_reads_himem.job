@@ -1,4 +1,0 @@
-for num in {0..40}
-do
-sbatch -o "./logs/shuffle_job_%j.out"  shuffle_reads_himem.job `pwd`/sample_${num}_1.fasta.gz `pwd`/sample_${num}_2.fasta.gz
-done

@@ -1,0 +1,10 @@
+{
+    "salmon_version": "0.14.1",
+    "threads": "4",
+    "index": "/home/AD/jbrenton/gencode_v32_short.fasta.index",
+    "libType": "IU",
+    "mates1": "/home/AD/jbrenton/small_polyester_test_1.14.19/sample_03_1_shuffled.fasta.gz",
+    "mates2": "/home/AD/jbrenton/small_polyester_test_1.14.19/sample_03_2_shuffled.fasta.gz",
+    "output": "sample_03_salmon_quant",
+    "auxDir": "aux_info"
+}

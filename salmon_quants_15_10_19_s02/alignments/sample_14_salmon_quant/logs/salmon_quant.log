@@ -1,0 +1,60 @@
+[2019-10-16 15:54:35.608] [jointLog] [info] Fragment incompatibility prior below threshold.  Incompatible fragments will be ignored.
+[2019-10-16 15:54:35.608] [jointLog] [warning] 
+
+NOTE: It appears you are running salmon without the `--validateMappings` option.
+Mapping validation can generally improve both the sensitivity and specificity of mapping,
+with only a moderate increase in use of computational resources. 
+Mapping validation is planned to become a default option (i.e. turned on by default) in
+the next release of salmon.
+Unless there is a specific reason to do this (e.g. testing on clean simulated data),
+`--validateMappings` is generally recommended.
+
+[2019-10-16 15:54:35.608] [jointLog] [info] parsing read library format
+[2019-10-16 15:54:35.608] [jointLog] [info] There is 1 library.
+[2019-10-16 15:54:41.501] [jointLog] [info] Loading Quasi index
+[2019-10-16 15:54:44.006] [jointLog] [info] Loading 32-bit quasi index
+[2019-10-16 15:55:02.112] [jointLog] [info] done
+[2019-10-16 15:55:02.112] [jointLog] [info] Index contained 226,030 targets
+[2019-10-16 16:18:28.919] [jointLog] [info] Computed 272,396 rich equivalence classes for further processing
+[2019-10-16 16:18:28.919] [jointLog] [info] Counted 52,665,273 total reads in the equivalence classes 
+[2019-10-16 16:18:28.947] [jointLog] [warning] 5.66037e-06% of fragments were shorter than the k used to build the index (31).
+If this fraction is too large, consider re-building the index with a smaller k.
+The minimum read size found was 12.
+
+
+[2019-10-16 16:18:28.947] [jointLog] [info] Number of fragments discarded because they have only dovetail (discordant) mappings : 13,115
+[2019-10-16 16:18:28.947] [jointLog] [info] Mapping rate = 99.3683%
+
+[2019-10-16 16:18:28.947] [jointLog] [info] finished quantifyLibrary()
+[2019-10-16 16:18:28.919] [fileLog] [info] 
+At end of round 0
+==================
+Observed 53000053 total fragments (53000053 in most recent round)
+
+[2019-10-16 16:18:41.571] [jointLog] [info] Starting optimizer
+[2019-10-16 16:18:55.120] [jointLog] [info] Marked 0 weighted equivalence classes as degenerate
+[2019-10-16 16:18:55.142] [jointLog] [info] iteration = 0 | max rel diff. = 26.9157
+[2019-10-16 16:18:57.058] [jointLog] [info] iteration = 100 | max rel diff. = 9.8595
+[2019-10-16 16:18:59.384] [jointLog] [info] iteration = 200 | max rel diff. = 18.6311
+[2019-10-16 16:19:01.513] [jointLog] [info] iteration = 300 | max rel diff. = 13.1904
+[2019-10-16 16:19:03.763] [jointLog] [info] iteration = 400 | max rel diff. = 17.15
+[2019-10-16 16:19:05.805] [jointLog] [info] iteration = 500 | max rel diff. = 12.7491
+[2019-10-16 16:19:07.973] [jointLog] [info] iteration = 600 | max rel diff. = 0.713185
+[2019-10-16 16:19:10.131] [jointLog] [info] iteration = 700 | max rel diff. = 0.335081
+[2019-10-16 16:19:12.331] [jointLog] [info] iteration = 800 | max rel diff. = 0.454219
+[2019-10-16 16:19:14.578] [jointLog] [info] iteration = 900 | max rel diff. = 1.04857
+[2019-10-16 16:19:16.637] [jointLog] [info] iteration = 1,000 | max rel diff. = 1.14941
+[2019-10-16 16:19:19.228] [jointLog] [info] iteration = 1,100 | max rel diff. = 0.281737
+[2019-10-16 16:19:21.628] [jointLog] [info] iteration = 1,200 | max rel diff. = 0.741542
+[2019-10-16 16:19:23.435] [jointLog] [info] iteration = 1,300 | max rel diff. = 1.14721
+[2019-10-16 16:19:25.207] [jointLog] [info] iteration = 1,400 | max rel diff. = 0.941457
+[2019-10-16 16:19:27.044] [jointLog] [info] iteration = 1,500 | max rel diff. = 0.225753
+[2019-10-16 16:19:28.778] [jointLog] [info] iteration = 1,600 | max rel diff. = 0.529514
+[2019-10-16 16:19:30.872] [jointLog] [info] iteration = 1,700 | max rel diff. = 0.0249671
+[2019-10-16 16:19:32.670] [jointLog] [info] iteration = 1,800 | max rel diff. = 0.0461145
+[2019-10-16 16:19:34.926] [jointLog] [info] iteration = 1,900 | max rel diff. = 0.0191589
+[2019-10-16 16:19:36.672] [jointLog] [info] iteration = 2,000 | max rel diff. = 0.124467
+[2019-10-16 16:19:38.318] [jointLog] [info] iteration = 2,092 | max rel diff. = 0.00989449
+[2019-10-16 16:19:38.339] [jointLog] [info] Finished optimizer
+[2019-10-16 16:19:38.339] [jointLog] [info] writing output 
+

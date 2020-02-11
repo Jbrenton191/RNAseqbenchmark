@@ -1,0 +1,40 @@
+[2019-11-22 11:05:39.025] [jointLog] [info] Fragment incompatibility prior below threshold.  Incompatible fragments will be ignored.
+[2019-11-22 11:05:39.025] [jointLog] [warning] 
+
+NOTE: It appears you are running salmon without the `--validateMappings` option.
+Mapping validation can generally improve both the sensitivity and specificity of mapping,
+with only a moderate increase in use of computational resources. 
+Mapping validation is planned to become a default option (i.e. turned on by default) in
+the next release of salmon.
+Unless there is a specific reason to do this (e.g. testing on clean simulated data),
+`--validateMappings` is generally recommended.
+
+[2019-11-22 11:05:39.025] [jointLog] [info] parsing read library format
+[2019-11-22 11:05:39.026] [jointLog] [info] There is 1 library.
+[2019-11-22 11:05:39.111] [jointLog] [info] Loading Quasi index
+[2019-11-22 11:05:39.111] [jointLog] [info] Loading 32-bit quasi index
+[2019-11-22 11:05:39.127] [jointLog] [info] done
+[2019-11-22 11:05:39.127] [jointLog] [info] Index contained 397 targets
+[2019-11-22 11:05:40.342] [jointLog] [info] Computed 1,245 rich equivalence classes for further processing
+[2019-11-22 11:05:40.342] [jointLog] [info] Counted 178,882 total reads in the equivalence classes 
+[2019-11-22 11:05:40.350] [jointLog] [info] Number of fragments discarded because they have only dovetail (discordant) mappings : 307
+[2019-11-22 11:05:40.351] [jointLog] [warning] Only 178882 fragments were mapped, but the number of burn-in fragments was set to 5000000.
+The effective lengths have been computed using the observed mappings.
+
+[2019-11-22 11:05:40.351] [jointLog] [info] Mapping rate = 99.7619%
+
+[2019-11-22 11:05:40.351] [jointLog] [info] finished quantifyLibrary()
+[2019-11-22 11:05:40.353] [jointLog] [info] Starting optimizer
+[2019-11-22 11:05:40.355] [jointLog] [info] Marked 0 weighted equivalence classes as degenerate
+[2019-11-22 11:05:40.355] [jointLog] [info] iteration = 0 | max rel diff. = 455.405
+[2019-11-22 11:05:40.367] [jointLog] [info] iteration = 100 | max rel diff. = 0.129816
+[2019-11-22 11:05:40.379] [jointLog] [info] iteration = 200 | max rel diff. = 0.0642883
+[2019-11-22 11:05:40.383] [jointLog] [info] iteration = 235 | max rel diff. = 0.0015612
+[2019-11-22 11:05:40.383] [jointLog] [info] Finished optimizer
+[2019-11-22 11:05:40.383] [jointLog] [info] writing output 
+
+[2019-11-22 11:05:40.343] [fileLog] [info] 
+At end of round 0
+==================
+Observed 179309 total fragments (179309 in most recent round)
+

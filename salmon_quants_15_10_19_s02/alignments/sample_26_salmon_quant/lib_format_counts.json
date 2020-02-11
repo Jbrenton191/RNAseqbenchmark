@@ -1,0 +1,25 @@
+{
+    "read_files": [
+        "/home/AD/jbrenton/fastashuffle/output_15_10_19_sz02/sample_26/sample_26_1_shuffled.fasta.gz",
+        "/home/AD/jbrenton/fastashuffle/output_15_10_19_sz02/sample_26/sample_26_2_shuffled.fasta.gz"
+    ],
+    "expected_format": "IU",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 106593514,
+    "num_assigned_fragments": 106593514,
+    "num_frags_with_concordant_consistent_mappings": 108328535,
+    "num_frags_with_inconsistent_or_orphan_mappings": 45639,
+    "strand_mapping_bias": 0.4999557872724855,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 54169057,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 54159478,
+    "SF": 24705,
+    "SR": 20934,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

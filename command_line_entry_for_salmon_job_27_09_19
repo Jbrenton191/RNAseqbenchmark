@@ -1,5 +1,0 @@
-############initiated in output_27_09_19 folder
-for num in {01..40}
-do
-sbatch -o "/usr/share/sequencing/internships/JonathanBrenton/polyester_simulation/simulate/logs/salmon_job_%j.out" /home/AD/jbrenton/fastashuffle/output/slurm_salmon.job ./sample_${num}/sample_${num}_1_shuffled.fasta.gz,./sample_${num}/sample_${num}_2_shuffled.fasta.gz "/home/AD/jbrenton/fastashuffle/output_27_09_19" sample_${num} /usr/share/sequencing/references/rnaseq/gencode.v31.transcripts_index IU
-done
