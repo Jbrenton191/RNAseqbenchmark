@@ -1,5 +1,0 @@
-name: "Website"
-output_dir: "docs"
-output:
-  html_document:
-theme: jekyll-theme-slate
