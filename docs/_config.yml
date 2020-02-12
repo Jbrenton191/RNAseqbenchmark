@@ -1,1 +1,12 @@
+name: "cars"
+output_dir: "docs"
+navbar:
+  title: "Cars"
+  left:
+  - text: "Home"
+   href: index.html
+  - text: "Simulating RNA-Seq Data"
+   href: speedandcars.html
+output:
+  html_document:
 theme: jekyll-theme-slate

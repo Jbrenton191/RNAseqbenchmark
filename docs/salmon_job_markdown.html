@@ -1617,7 +1617,8 @@ div.tocify {
 
 <div id="creating-a-transcript-index-for-salmon" class="section level1">
 <h1>Creating a transcript index for salmon</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">salmon</span> index -t gencode.v32.transcripts.fa.gz -i gencode.v32.transcripts.index</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">salmon</span> index -t gencode.v32.transcripts.fa.gz </a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="ex">-i</span> gencode.v32.transcripts.index</a></code></pre></div>
 <p>This creates an index of the transriptome for salmon to look up reads against. The input is the <em>.fa.gz</em> file and the output index file can be named as anything, in this case gencode.v32.transcripts.index.</p>
 </div>
 <div id="initial-bash-script-setup-for-slurm-scheduler" class="section level1">
