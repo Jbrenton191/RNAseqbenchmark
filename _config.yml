@@ -1,1 +1,10 @@
 theme: jekyll-theme-modernist
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - /docs/polyester_simulation.html
+  - /docs/Shuffling_reads.html
+  - /docs/salmon_job_markdown.html
+  - /docs/deseq_analysis_markdown.html
+  - /docs/Flux_simulations.html
