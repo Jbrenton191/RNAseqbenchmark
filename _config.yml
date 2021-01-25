@@ -3,8 +3,8 @@ relative_links:
   enabled: true
   collections: true
 include:
-  - /docs/polyester_simulation.html
-  - /docs/Shuffling_reads.html
-  - /docs/salmon_job_markdown.html
-  - /docs/deseq_analysis_markdown.html
-  - /docs/Flux_simulations.html
+  - polyester_simulation.html
+  - Shuffling_reads.html
+  - salmon_job_markdown.html
+  - deseq_analysis_markdown.html
+  - Flux_simulations.html
